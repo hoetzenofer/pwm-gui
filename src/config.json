@@ -1,0 +1,20 @@
+{
+    "grid-size": [80, 60],
+    "grid-element": 10,
+
+    "img": {
+        "img-folder": "img",
+        "color-scheme": "pale"
+    },
+
+    "font": "font//minecraft.ttf",
+
+    "scheme-data": {
+        "nether": {
+            "background-color": [135, 70, 90]
+        },
+        "pale": {
+            "background-color": [120, 120, 165]
+        }
+    }
+}

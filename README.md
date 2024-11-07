@@ -1,0 +1,2 @@
+GUI menu for pulse width modulation (pwm).
+Note that this is only the GUI, and you cannot control PWM (on a Raspberry for example) with it yet. However, this will probably be implemented in the future.
