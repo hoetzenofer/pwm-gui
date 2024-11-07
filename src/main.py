@@ -49,7 +49,7 @@ input_frequency = InputField(
 input_ti = InputField(
     f"{cs}textfield_mid.png",
     f"{cs}textfield_mid_active.png",
-    "Ti", font, 4, (255, 255, 255), None, 3,
+    "Ti", font, 4, (255, 255, 255), int, 3,
     (14, 31)
 )
 
