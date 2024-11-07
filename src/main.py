@@ -87,7 +87,7 @@ while running:
         # buttons hovered?
         button_start_clock.is_hover(mouse_pos)
         button_single_step.is_hover(mouse_pos)
-        
+
         # buttons clicked?
         button_start_clock.is_clicked(event)
         button_single_step.is_clicked(event)
