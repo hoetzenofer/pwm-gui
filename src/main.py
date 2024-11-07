@@ -53,6 +53,13 @@ input_ti = InputField(
     (14, 31)
 )
 
+input_gpio = InputField(
+    f"{cs}textfield_small.png",
+    f"{cs}textfield_small_active.png",
+    "PIN", font, 4, (255, 255, 255), int, 2,
+    (40, 20)
+)
+
 # FUNKTIONS
 def draw_text(text, pos, font_name, font_size, color, align=None):
     font = pg.font.Font("font//" + font_name, font_size * 5)
@@ -91,6 +98,7 @@ while running:
         # input field event happening? (clicked? text input?)
         input_frequency.handle_event(event)
         input_ti.handle_event(event)
+        input_gpio.handle_event(event)
 
     screen.fill(jdata["scheme-data"][jdata["img"]["color-scheme"]]["background-color"])
 
@@ -108,8 +116,10 @@ while running:
 
     button_start_clock.draw(screen) 
     button_single_step.draw(screen) 
-    input_frequency.draw(screen)    
-    input_ti.draw(screen)           
+
+    input_frequency.draw(screen)
+    input_ti.draw(screen)
+    input_gpio.draw(screen)
     # main end
 
     pg.display.update()
