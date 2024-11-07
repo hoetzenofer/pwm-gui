@@ -57,6 +57,51 @@ class Button:
             self.is_pressed = False
         return False
     
+class ButtonToggle:
+    def __init__(self, normal_image: str, hover_image: str, active_image: str, text_standby: str, text_active: str, font_path: str, font_size: int, font_color: tuple[int, int, int], position: tuple[int, int]):
+        self.normal_image = pg.transform.scale(pg.image.load(normal_image), (pg.image.load(normal_image).get_width() * grid_element, pg.image.load(normal_image).get_height() * grid_element))
+        self.hover_image = pg.transform.scale(pg.image.load(hover_image), (pg.image.load(hover_image).get_width() * grid_element, pg.image.load(hover_image).get_height() * grid_element))
+        self.pressed_image = pg.transform.scale(pg.image.load(active_image), (pg.image.load(active_image).get_width() * grid_element, pg.image.load(active_image).get_height() * grid_element))
+        self.text = text_standby
+        self.text_standby = text_standby
+        self.text_active = text_active
+        self.font_path = font_path
+        self.font_size = font_size
+        self.font_color = font_color
+        self.position = position[0] * grid_element, position[1] * grid_element
+
+        self.is_hovered = False
+        self.is_active = False
+
+    def draw(self, surface):
+        if self.is_active:
+            surface.blit(self.pressed_image, self.normal_image.get_rect(center=self.position))
+        elif self.is_hovered:
+            surface.blit(self.hover_image, self.normal_image.get_rect(center=self.position))
+        else:
+            surface.blit(self.normal_image, self.normal_image.get_rect(center=self.position))
+
+        # drawing text
+        font = pg.font.Font(self.font_path, self.font_size * 5).render(self.text, True, self.font_color)
+        text_rect = font.get_rect(center=self.position)
+        surface.blit(font, text_rect.topleft)
+
+    def is_hover(self, mouse_pos):
+        button_rect = self.normal_image.get_rect(center=self.position)
+        self.is_hovered = button_rect.collidepoint(mouse_pos)           # mouse colliding with hitbox?
+
+    def is_clicked(self, event):
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1 and self.is_hovered:
+            self.is_active = not self.is_active
+            if self.text_active != None:
+                if self.is_active == True:
+                    self.text = self.text_active
+                else:
+                    self.text = self.text_standby
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
+            return True
+        return False
+    
 class InputField:
     def __init__(self, normal_image: str, active_image: str, standard_value: str, font_path: str, font_size: int, font_color: tuple[int, int, int], input_type, max_input: int, position: tuple[int, int]):
         self.normal_image = pg.transform.scale(pg.image.load(normal_image), (pg.image.load(normal_image).get_width() * grid_element, pg.image.load(normal_image).get_height() * grid_element))
