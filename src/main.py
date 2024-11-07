@@ -3,7 +3,7 @@ os.chdir(os.path.dirname(__file__))
 
 import pygame as pg
 import json
-from ext import Button, InputField
+from ext import Button, ButtonToggle, InputField
 
 with open("config.json", "r") as file:
     jdata = json.load(file)
@@ -22,11 +22,11 @@ cs = jdata["img"]["img-folder"] + "//" + jdata["img"]["color-scheme"] + "//"
 font = jdata["font"]
 
 # BUTTONS
-button_start_clock = Button(
+button_start_clock = ButtonToggle(
     f"{cs}button_big.png",
     f"{cs}button_big_highlight.png",
     f"{cs}button_big_pressed.png",
-    "START", None, font, 5, (255, 255, 255),
+    "START", "STOP", font, 5, (255, 255, 255),
     (30, 48)
 )
 
@@ -90,9 +90,9 @@ while running:
         
         # buttons clicked?
         if button_start_clock.is_clicked(event):
-            print("call function1")
+            print("PWM Clock running!")
 
-        elif button_single_step.is_clicked(event):
+        if button_single_step.is_clicked(event):
             print("call function2")
 
         # input field event happening? (clicked? text input?)
@@ -120,6 +120,8 @@ while running:
     input_frequency.draw(screen)
     input_ti.draw(screen)
     input_gpio.draw(screen)
+
+    print(button_start_clock.is_active)
     # main end
 
     pg.display.update()
