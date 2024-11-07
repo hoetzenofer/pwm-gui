@@ -29,11 +29,11 @@ class Button:
 
     def draw(self, surface):
         if self.is_pressed:
-            surface.blit(self.pressed_image, self.normal_image.get_rect(center=self.position))  # button pressed
+            surface.blit(self.pressed_image, self.normal_image.get_rect(center=self.position))
         elif self.is_hovered:
-            surface.blit(self.hover_image, self.normal_image.get_rect(center=self.position))    # button hovered
+            surface.blit(self.hover_image, self.normal_image.get_rect(center=self.position))
         else:
-            surface.blit(self.normal_image, self.normal_image.get_rect(center=self.position))   # button standby
+            surface.blit(self.normal_image, self.normal_image.get_rect(center=self.position))
 
         # drawing text
         font = pg.font.Font(self.font_path, self.font_size * 5).render(self.text, True, self.font_color)
@@ -41,7 +41,7 @@ class Button:
         surface.blit(font, text_rect.topleft)
 
     def is_hover(self, mouse_pos):
-        button_rect = self.normal_image.get_rect(center=self.position)  # hitbox
+        button_rect = self.normal_image.get_rect(center=self.position)
         self.is_hovered = button_rect.collidepoint(mouse_pos)           # mouse colliding with hitbox?
 
     def is_clicked(self, event):
@@ -74,7 +74,6 @@ class InputField:
         self.font = pg.font.Font(None, self.font_size)
 
     def draw(self, surface):
-        # choosing image depending on status
         if self.is_active:
             surface.blit(self.active_image, self.normal_image.get_rect(center=self.position))
         else:
@@ -87,24 +86,23 @@ class InputField:
 
     def handle_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
-            # clicked at field position?
             mouse_pos = pg.mouse.get_pos()
             textfield_rect = self.normal_image.get_rect(center=self.position)
 
             if textfield_rect.collidepoint(mouse_pos):
-                self.is_active = True                   # set field to active
+                self.is_active = True                   # set field to active if clicked
                 if self.text == self.standard_value:    # checking if value is standard text
                     self.text = ""                      # if so reset value
 
             else:
-                self.is_active = False                  # set field to inactive
+                self.is_active = False                  # set field to inactive if clicked somewhere else
 
         if event.type == pg.KEYDOWN and self.is_active:
             if len(self.text) >= self.max_input and event.key != pg.K_BACKSPACE:
                 self.text = ""
 
             if event.key == pg.K_BACKSPACE:
-                self.text = self.text[:-1]  # delete last char if backspace pressed
+                self.text = self.text[:-1]
 
             elif self.input_type == int and event.unicode in string.digits:             # is input a number?
                 self.text += event.unicode                                              # if so add input to text
