@@ -89,11 +89,8 @@ while running:
         button_single_step.is_hover(mouse_pos)
         
         # buttons clicked?
-        if button_start_clock.is_clicked(event):
-            print("PWM Clock running!")
-
-        if button_single_step.is_clicked(event):
-            print("call function2")
+        button_start_clock.is_clicked(event)
+        button_single_step.is_clicked(event)
 
         # input field event happening? (clicked? text input?)
         input_frequency.handle_event(event)
